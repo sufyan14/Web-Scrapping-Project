@@ -27,25 +27,21 @@ soup = BeautifulSoup(r.text, 'html.parser')
 
 spans = soup.find(class_="x-item-title__mainTitle")  # Title Scrapped
 prices = soup.find(class_="x-price-primary")  # Price scrapped
-for span in spans:
-    print(span.get_text())
 
-data['title'].append(span.get_text())
+if spans:
+    title = spans.get_text()
+    print(title)
+    data['title'].append(title)
+else:
+    print("Title not found.")
 
-for price in prices:
-    # print(price.string)
+if prices:
+    price_value = prices.get_text()
+    print(price_value)
+    data['price'].append(price_value)
+else:
+    print("Price not found.")
 
-    if price:
-        # Extract the text content of the element
-        price_text = price.get_text()
-
-    print(price_text)
-    
-    data['price'].append(price.get_text())
-    if len(data["price"]) == len(data["title"]):
-        break
-# else:
-#     print("Price not found.")
 
 df = pd.DataFrame.from_dict(data)
 df.to_csv("data.csv", index=False)
