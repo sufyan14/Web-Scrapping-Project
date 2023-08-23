@@ -1,5 +1,4 @@
-
-![Web Scrapping](https://github.com/sufyan14/Web-Scrapping-Project/assets/108999846/e289abdb-bbd2-4aef-8942-a34ea9ad9350)
+![Web Scrapping](https://github.com/sufyan14/Web-Scrapping-Project/assets/108999846/84db3455-8df4-444c-9ef5-32c4f74c4c96)
 
 Learn how to leverage Python's amazing tools to scrape data from other websites.
 
