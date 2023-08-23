@@ -1,10 +1,13 @@
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup
 
 proxies = {
     "http": "http://10.10.1.10:3128",
     "https": "https://10.10.10.10:8000",
 }
+
+data = {'title': [], 'price': []}
 
 url = "https://www.ebay.com/itm/354586733872?_trkparms=pageci%3A1a2720bf-4113-11ee-b135-be5081a9b63b%7Cparentrq%3A1e562f2f18a0a8cc3c19d5d1ffff0906%7Ciid%3A1"
 headers = {
@@ -22,5 +25,27 @@ soup = BeautifulSoup(r.text, 'html.parser')
 # # for span in spans:
 # print(div)
 
-spans = soup.find(class_="ux-textspans ux-textspans--BOLD")
-print(spans)
+spans = soup.find(class_="x-item-title__mainTitle")  # Title Scrapped
+prices = soup.find(class_="x-price-primary")  # Price scrapped
+for span in spans:
+    print(span.get_text())
+
+data['title'].append(span.get_text())
+
+for price in prices:
+    # print(price.string)
+
+    if price:
+        # Extract the text content of the element
+        price_text = price.get_text()
+
+    print(price_text)
+    
+    data['price'].append(price.get_text())
+    if len(data["price"]) == len(data["title"]):
+        break
+# else:
+#     print("Price not found.")
+
+df = pd.DataFrame.from_dict(data)
+df.to_csv("data.csv", index=False)
